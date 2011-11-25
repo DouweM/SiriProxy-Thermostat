@@ -83,8 +83,9 @@ class SiriProxy::Plugin::Thermostat < SiriProxy::Plugin
     
     Thread.new {
       status = JSON.parse(HTTParty.get("http://#{self.host}/tstat").body)
-        say "The current inside temperature is #{status["temp"]} degrees."      
-      }
-
+      say "The current inside temperature is #{status["temp"]} degrees."      
+        
+      request_completed #always complete your request! Otherwise the phone will "spin" at the user!
+    }
   end
 end
